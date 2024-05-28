@@ -1,4 +1,4 @@
-## Building an Agent for Amazon Bedrock: Seamlessly Interact with DynamoDB and Knowledge Bases using Natural Language
+## Building an Agent for Amazon Bedrock: Seamlessly Interact with Amazon DynamoDB and Knowledge Bases for Amazon Bedrock using Natural Language.
 
 [Agents for Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html) enable developers to create conversational agents that understand natural language through foundation models (FMs). In this blog post, I'll create an Amazon Bedrock Agent that allows users to interact with an [Amazon DynamoDB](https://aws.amazon.com/pm/dynamodb/) table and a [Knowledge bases for Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html) using natural language.
 
