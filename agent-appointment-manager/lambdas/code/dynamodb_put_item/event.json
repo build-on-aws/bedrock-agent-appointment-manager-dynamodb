@@ -1,0 +1,42 @@
+{
+    "messageVersion": "1.0",
+    "agent": {
+        "alias": "TSTALIASID",
+        "name": "spa-agent",
+        "version": "DRAFT",
+        "id": "SITRD5CLOB"
+    },
+    "sessionId": "528681203296579",
+    "sessionAttributes": {},
+    "promptSessionAttributes": {},
+    "inputText": "20 de junio del 2024",
+    "actionGroup": "SpaAppointment",
+    "function": "BookSpa",
+    "parameters": [
+        {
+            "name": "date",
+            "type": "string",
+            "value": "20-06-2024"
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "value": "elizabeth"
+        },
+        {
+            "name": "phone_number",
+            "type": "number",
+            "value": "56963054578"
+        },
+        {
+            "name": "massage_type",
+            "type": "string",
+            "value": "linfático"
+        },
+        {
+            "name": "lastname",
+            "type": "string",
+            "value": "fuentes"
+        }
+    ]
+}

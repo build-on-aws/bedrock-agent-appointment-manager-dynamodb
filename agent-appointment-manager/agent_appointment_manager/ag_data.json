@@ -1,0 +1,76 @@
+[
+    {
+    "action_group_name": "SpaAppointment",
+    "description": "useful when you have data to book an appointment in the spa agenda",
+    "functions": {
+        "name": "BookSpa",
+        "description": "date (dd-mm-yyyy) and time (hh:mm) for which the client wants to schedule the massage. Days: Monday to Friday an hour between 9 a.m. and 6 p.m., keep in mind lunch time which is from 12 p.m. to 1 p.m.",
+        "parameters":  [
+            {
+            "name": "date",
+            "type": "string",
+            "description": "date (dd-mm-yyyy) and time (hh:mm) for which the client wants to schedule the massage. Days: Monday to Friday an hour between 9 a.m. and 6 p.m., keep in mind lunch time which is from 12 p.m. to 1 p.m.",
+            "required": 1
+        },
+        {
+            "name": "email",
+            "type": "string",
+            "description": "customer email",
+            "required": 1
+        },
+        {
+            "name": "massage_type",
+            "type": "string",
+            "description": "customer massage type (abdominal, cranial-facial, foot, lymphatic, perineal, respiratory-physiotherapy, spinal, upper-body, whole-body)",
+            "required": 1
+        },
+        {
+            "name": "phone_number",
+            "type": "string",
+            "description": "customer phone number",
+            "required": 1
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "description": "customer name",
+            "required": 1
+        }
+    ]
+    }
+},
+{
+    "action_group_name": "GetAppointment",
+    "description": "useful when you want to get appointment information data by phone number",
+    "lambda_": "",
+    "functions": {
+        "name": "GetMassage",
+        "description": "useful when you want to get appointment information data by phone number",
+        "parameters":  [
+            {
+            "name": "phone_number",
+            "type": "string",
+            "description": "customer phone number",
+            "required": 1
+        }
+    ]
+    }
+},
+{
+    "action_group_name": "AskTodayDAy",
+    "description": "useful when you want to know today date and time",
+    "lambda_": "",
+    "functions": {
+        "name": "GetTodayDateTime",
+        "description": "useful when you want to know today date and time in DD/MM/YY HH:MM:SS format",
+        "parameters":  [
+            {
+            "name": "date",
+            "type": "string",
+            "description": "date",
+            "required": 0
+        }
+    ]
+    }
+}
+]
