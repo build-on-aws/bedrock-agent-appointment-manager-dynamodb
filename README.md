@@ -6,6 +6,8 @@ I'll guide you through setting up the resources, defining the agent's action gro
 
 By the end, you'll understand how to build an intelligent conversational agent that simplifies database interactions, delivers personalized responses, and provides a user-friendly experience.
 
+![Digrama parte 1](/imagen/diagram.jpg)
+
 ## Conclusion
 
 In this blog post, you learned how to create an Amazon Bedrock conversational agent that allows users to interact with a Amazon DynamoDB table using natural language. 
