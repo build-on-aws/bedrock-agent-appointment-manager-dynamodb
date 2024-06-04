@@ -78,9 +78,9 @@ class AgentAppointmentManagerStack(Stack):
 
         ENV_KEY_NAME = "date"
         env_key_sec_global = "phone_number"
-        file_path_ag_data = './spa_agent/ag_data.json'
-        file_path_agent_data = './spa_agent/agent_data.json'
-        file_path_kb_data = './spa_agent/kb_data.json'
+        file_path_ag_data = './agent_appointment_manager/ag_data.json'
+        file_path_agent_data = './agent_appointment_manager/agent_data.json'
+        file_path_kb_data = './agent_appointment_manager/kb_data.json'
 
         REGION = self.region
         ACCOUNT_ID = self.account

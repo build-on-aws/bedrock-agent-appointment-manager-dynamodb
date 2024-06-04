@@ -13,7 +13,7 @@ class CreateAgentRole(Stack):
         self.kb_service_role = iam.Role(
                 self,
                 "Kb",
-                role_name= f'AmazonBedrockExecutionRoleForAgents_{kb_data["knowledge_base_id"]}',
+                role_name= f'AmazonBedrockExecutionRoleForAgents_{kb_data[0]["knowledge_base_id"]}',
                 assumed_by=iam.ServicePrincipal("bedrock.amazonaws.com",
                 conditions={
                     "StringEquals": {
@@ -36,14 +36,20 @@ class CreateAgentRole(Stack):
                 )
                 )
         
+
+             
         if kb_data:
+            resources = ""
+            for item in kb_data:
+                resources += f"arn:aws:bedrock:{_region}:{_account}:knowledge-base/{item['knowledge_base_id']},"
+       
             self.knowledge_base_policy = iam.PolicyStatement(
                 effect=iam.Effect.ALLOW,
                 actions=[
                     "bedrock:Retrieve",
                 ],
                 resources=[
-                    f"arn:aws:bedrock:{_region}:{_account}:knowledge-base/{kb_data["knowledge_base_id"]}",
+                    resources,
                 ]
                 )
             self.kb_service_role.add_to_policy(self.knowledge_base_policy)

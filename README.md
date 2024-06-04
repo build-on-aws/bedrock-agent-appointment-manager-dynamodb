@@ -87,13 +87,13 @@ pip install -r requirements.txt
 ✅ **Synthesize The Cloudformation Template With The Following Command**:
 
 ```
-cdk synth
+cdk synth --all
 ```
 
 ✅🚀 **The Deployment**:
 
 ```
-cdk deploy
+cdk deploy --all
 ```
 
 ## Enjoy the app!:
