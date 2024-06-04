@@ -39,18 +39,17 @@ class CreateAgentRole(Stack):
 
              
         if kb_data:
-            resources = ""
+            resources = []
             for item in kb_data:
-                resources += f"arn:aws:bedrock:{_region}:{_account}:knowledge-base/{item['knowledge_base_id']},"
+                items= f"arn:aws:bedrock:{_region}:{_account}:knowledge-base/{item['knowledge_base_id']}"
+                resources.append(items)
        
             self.knowledge_base_policy = iam.PolicyStatement(
                 effect=iam.Effect.ALLOW,
                 actions=[
                     "bedrock:Retrieve",
                 ],
-                resources=[
-                    resources,
-                ]
+                resources=resources
                 )
             self.kb_service_role.add_to_policy(self.knowledge_base_policy)
             
