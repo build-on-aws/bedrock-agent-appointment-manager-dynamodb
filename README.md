@@ -100,6 +100,16 @@ cdk deploy --all
 
 Try the agent in the [Amazon Bedrock Console](https://console.aws.amazon.com/bedrock/) and improve the agent's instructions until you find the best result.
 
+### Schedule an appointment
+
+![Digrama parte 1](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/imagen/put_item.gif)
+
+
+### Check the status of an appointment
+
+![Digrama parte 1](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/imagen/query.gif)
+
+You can create new logic for the action groups, make the agent more specialized... there is no limit!
 
 ## Conclusion
 
