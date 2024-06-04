@@ -8,13 +8,13 @@ By the end, you'll understand how to build an intelligent conversational agent t
 
 ## How The App Works
 
-![Digrama parte 1](/imagen/diagram.jpg)
+![Digrama parte 1](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/imagen/diagram.jpg)
 
 This agent acts as the interface for the user to input information and make requests.
 
 The user's actions trigger AWS Lambda functions based on [action group](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-action-create.html) definition, actions that the agent can help the user perform three key actions: [SpanAppointment](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/lambdas/code/dynamodb_put_item/lambda_function.py), [GetAppointment](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/lambdas/code/dynamodb_query/lambda_function.py), and [AskTodayDate](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/lambdas/code/ask_date/lambda_function.py).
 
-> Action group definition is in [ag_data.json](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/ag_data.json)
+> 👾 Action group definition is in [ag_data.json](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/ag_data.json) and Amazon Bedrock Definition is in [agent_data.json](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/ag_data.json)
 
 The SpanAppointment and GetAppointment functions interact with an [Amazon DynamoDB table](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/databases/databases.py). It stores and retrieves the appointment data as needed.
 
@@ -61,7 +61,7 @@ Create the Amzon Knowledge base by following [these steps](https://docs.aws.amaz
         "knowledge_base_id": "XXXXXXXXXX"
     }
 ```
-### Step 2: Deploy architecture with CDK.
+### Step 2: Deploy Architecture With CDK.
 
 ✅ **Create The Virtual Environment**: by following the steps in the [README](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/README.md)
 
@@ -110,6 +110,44 @@ Try the agent in the [Amazon Bedrock Console](https://console.aws.amazon.com/bed
 ![Digrama parte 1](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/imagen/query.gif)
 
 ### You can create new logic for the action groups, make the agent more specialized... there is no limit!
+
+## Next Steps
+
+This code is designed to build three types of agents:
+
+- Conversational Agent
+- Agent with Knowledge Base
+- Agent with Action Groups
+- Agent with both Action Groups and Knowledge Base (deployed by default)
+
+The type of agent being built is defined in line 130 of [agent_appointment_manager_stack.py](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/agent_appointment_manager_stack.py). The construction of each type of agent depends on the existence of the JSON definition files for the [Knowledge Base](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-create.html) and [Action Groups](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/ag_data.json).
+
+```python
+        if kb_data and not ag_data:
+            agent_name = "spa_agent_withKB"
+            print("KB data")
+            agent_knowledge_base_property =create_kb_property(kb_data) 
+
+            ag = CreateAgentWithKB(self, "agentwithkb",agent_name, agent_data["foundation_model"],agent_data["agent_instruction"],agent_data["description"],agent_knowledge_base_property, agent_resource_role.arn)
+        
+        elif ag_data and not kb_data:
+            agent_name = "spa_agent_withag"
+            print("AG data")
+            agent_action_group_properties = agent_action_group_property(ag_data)                              
+            ag = CreateAgentWithAG(self, "agentwithag",agent_name, agent_data["foundation_model"],agent_data["agent_instruction"],agent_data["description"],agent_action_group_properties, agent_resource_role.arn)
+
+        elif ag_data and kb_data:
+            agent_name = "spa_agent_with_ag_kb"
+            print("AG and KB data")
+            agent_action_group_properties = agent_action_group_property(ag_data)
+            agent_knowledge_base_property =create_kb_property(kb_data) 
+            ag = CreateAgentWithKA(self, "agentwithbooth", agent_name, agent_data["foundation_model"], agent_data["agent_instruction"], agent_data["description"], agent_knowledge_base_property, agent_action_group_properties, agent_resource_role.arn)        
+
+        else:
+            agent_name = "spa_agent"
+            print("No data")
+            ag = CreateAgent(self, "agent",agent_name, agent_data["description"], agent_resource_role.arn)
+```
 
 ## Conclusion
 
