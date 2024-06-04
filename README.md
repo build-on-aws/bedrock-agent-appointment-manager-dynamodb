@@ -6,7 +6,100 @@ I'll guide you through setting up the resources, defining the agent's action gro
 
 By the end, you'll understand how to build an intelligent conversational agent that simplifies database interactions, delivers personalized responses, and provides a user-friendly experience.
 
+## How The App Works
+
 ![Digrama parte 1](/imagen/diagram.jpg)
+
+This agent acts as the interface for the user to input information and make requests.
+
+The user's actions trigger AWS Lambda functions based on [action group](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-action-create.html) definition, actions that the agent can help the user perform three key actions: [SpanAppointment](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/lambdas/code/dynamodb_put_item/lambda_function.py), [GetAppointment](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/lambdas/code/dynamodb_query/lambda_function.py), and [AskTodayDate](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/lambdas/code/ask_date/lambda_function.py).
+
+> Action group definition is in [ag_data.json](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/ag_data.json)
+
+The SpanAppointment and GetAppointment functions interact with an [Amazon DynamoDB table](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/databases/databases.py). It stores and retrieves the appointment data as needed.
+
+The AskTodayDate function retrieves the current date information, which is then relayed back to the user via the Agent for Amazon Bedrock. This allows the user to receive real-time updates and confirmations regarding their appointment scheduling actions.
+
+Leveraging the information stored in the knowledge base, the agent can then offer personalized massage recommendations tailored to the customer's unique needs. It can suggest the most suitable massage types, durations, and any additional services that may enhance their spa experience and address their specific concerns.
+
+For example, if a customer mentions neck pain and stiffness, the agent can draw from the knowledge base and recommend a deep tissue massage focused on the neck and shoulder area, combined with hot stone therapy for added relaxation and muscle relief. 
+
+
+✅ **AWS Level**: Intermediate - 200   
+
+**Prerequisites:**
+
+- [AWS Account](https://aws.amazon.com/resources/create-account/?sc_channel=el&sc_campaign=datamlwave&sc_content=cicdcfnaws&sc_geo=mult&sc_country=mult&sc_outcome=acq) 
+-  [Foundational knowledge of Python](https://catalog.us-east-1.prod.workshops.aws/workshops/3d705026-9edc-40e8-b353-bdabb116c89c/) 
+
+💰 **Cost to complete**: 
+- [Amazon Bedrock Pricing](https://aws.amazon.com/bedrock/pricing/)
+- [Amazon Lambda Pricing](https://aws.amazon.com/lambda/pricing/)
+- [Amazon DynamoDB Pricing](https://aws.amazon.com/dynamodb/pricing/)
+
+## Let's build!
+
+### Step 1:  APP Set Up 
+
+✅ **Clone the repo**
+
+```
+git clone https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb
+```
+
+✅ **Go to**: 
+
+```
+cd agent-appointment-manage
+```
+
+Create the Amzon Knowledge base by following [these steps](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-create.html) and using [this data](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/spa-data), then in [kb_data.json](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/agent_appointment_manager/kb_data.json) edit the "knowledge_base_id" value:
+
+```
+    {
+        "description_kb": "Recommend the best massage. Recommend the best massage according to the user's preferences",
+        "knowledge_base_id": "XXXXXXXXXX"
+    }
+```
+### Step 2: Deploy architecture with CDK.
+
+✅ **Create The Virtual Environment**: by following the steps in the [README](https://github.com/build-on-aws/bedrock-agent-appointment-manager-dynamodb/blob/main/agent-appointment-manager/README.md)
+
+```
+python3 -m venv .venv
+```
+
+```
+source .venv/bin/activate
+```
+for windows: 
+
+```
+.venv\Scripts\activate.bat
+```
+
+✅ **Install The Requirements**:
+
+```
+pip install -r requirements.txt
+```
+
+✅ **Synthesize The Cloudformation Template With The Following Command**:
+
+```
+cdk synth
+```
+
+✅🚀 **The Deployment**:
+
+```
+cdk deploy
+```
+
+## Enjoy the app!:
+
+Try the agent in the [Amazon Bedrock Console](https://console.aws.amazon.com/bedrock/) and improve the agent's instructions until you find the best result.
+
 
 ## Conclusion
 
